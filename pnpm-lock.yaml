@@ -7,6 +7,7 @@ specifiers:
   express-ejs-layouts: ^2.5.1
   nodemon: ^2.0.15
   pg: ^8.8.0
+  pg-protocol: ^1.6.0
 
 dependencies:
   dotenv: 16.0.3
@@ -14,6 +15,7 @@ dependencies:
   express: 4.18.2
   express-ejs-layouts: 2.5.1
   pg: 8.8.0
+  pg-protocol: 1.6.0
 
 devDependencies:
   nodemon: 2.0.20
@@ -563,8 +565,8 @@ packages:
       pg: 8.8.0
     dev: false
 
-  /pg-protocol/1.5.0:
-    resolution: {integrity: sha512-muRttij7H8TqRNu/DxrAJQITO4Ac7RmX3Klyr/9mJEOBeIpgnF8f9jAfRz5d3XwQZl5qBjF9gLsUtMPJE0vezQ==}
+  /pg-protocol/1.6.0:
+    resolution: {integrity: sha512-M+PDm637OY5WM307051+bsDia5Xej6d9IR4GwJse1qA1DIhiKlksvrneZOYQq42OM+spubpcNYEo2FcKQrDk+Q==}
     dev: false
 
   /pg-types/2.2.0:
@@ -591,7 +593,7 @@ packages:
       packet-reader: 1.0.0
       pg-connection-string: 2.5.0
       pg-pool: 3.5.2_pg@8.8.0
-      pg-protocol: 1.5.0
+      pg-protocol: 1.6.0
       pg-types: 2.2.0
       pgpass: 1.0.5
     dev: false
