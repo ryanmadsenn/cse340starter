@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "pgOptions": {
+        "ssl": true
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "driver": "PostgreSQL",
+      "name": "wdd330",
+      "connectString": "postgres://wdd330:n3x1TQteg3jEke35sRQ5KJjrDHJf2guG@dpg-cf7es1kgqg44eot1a4k0-a.oregon-postgres.render.com/wdd330"
+    }
+  ]
+}

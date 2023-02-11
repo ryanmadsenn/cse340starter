@@ -63,15 +63,22 @@ nav ul {
 }
 
 nav li {
-  color: white;
   list-style: none;
   padding: 10px;
 }
 
+nav li a {
+  text-decoration: none;
+  color: white;
+}
+
 nav li:hover {
   background-color: aqua;
-  color: black;
   cursor: pointer;
+}
+
+nav li:hover a {
+  color: black;
 }
 
 h1,
@@ -164,6 +171,56 @@ h3 {
 
 #reviews li {
   margin: 0 0 20px 0;
+}
+
+#inv-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  padding: 0;
+  margin: 0 10px 0 10px;
+
+}
+
+#inv-display li {
+  list-style: none;
+  box-shadow: 0 0 3px #999;
+  border-radius: 5px;
+}
+
+#inv-display hr {
+  height: 1px;
+  background-color: #dedede;
+  border: none;
+}
+
+.image-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+
+.image-link img {
+  border-radius: 5px;
+}
+
+.name-price h2 {
+  margin: 0;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+.name-price h2 a {
+  text-decoration: none;
+  color: #118ab2;
+}
+
+.name-price span {
+  display: block;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  color: #52b788;
 }
 
 @media screen and (max-width: 1000px) {
