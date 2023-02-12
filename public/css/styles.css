@@ -223,6 +223,41 @@ h3 {
   color: #52b788;
 }
 
+#detail-title {
+  margin-bottom: 0;
+}
+
+#detail-container {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  align-items: center;
+}
+
+#detail-container h2 {
+  margin: 0;
+}
+
+#detail-container p {
+  font-size: 18px;
+}
+
+.detail-img {
+  /* margin-left: 10px; */
+  width: 100%;
+  box-shadow: 0 0 3px #999;
+  border-radius: 5px;
+}
+
+#detail-price {
+  color: #52b788;
+}
+
+.copyright {
+  margin: 10px;
+}
+
 @media screen and (max-width: 1000px) {
   /* #hero-img {
     width: ;
@@ -235,6 +270,12 @@ h3 {
 
   #reviews {
     grid-row: 1/2;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #detail-container {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -258,5 +299,9 @@ h3 {
 
   #hero-info div {
     font-size: 10px;
+  }
+
+  #inv-display {
+    grid-template-columns: 1fr;
   }
 }

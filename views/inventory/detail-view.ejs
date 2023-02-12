@@ -1,0 +1,23 @@
+<% if (title) { %>
+    <h1 id="detail-title"><%= title %></h1>
+<% } else { res.redirect('/') } %>
+
+<% if (message) { %>
+    <p class="notice"><%= message %></p>
+<% } %>
+        
+<% if (data.length > 0) { %>
+    <div id="detail-container">
+        <img class="detail-img" src="<%= data[0].inv_image %>" alt="Image of <%= data[0].inv_make %> <%= data[0].inv_model %> on CSE Motors">
+        <div id detail-info-container>
+            <h2>Vehicle Details</h2>
+            <p><%= data[0].inv_description %></p>
+            <p>Price: <span id="detail-price">$<%= new Intl.NumberFormat('en-US').format(data[0].inv_price) %></span></p>
+            <p>Year: <%= data[0].inv_year %></p>
+            <p>Miles: <%= data[0].inv_miles %></p>
+            <p>Color: <%= data[0].inv_color %></p>
+        </div>
+    </div>
+<% } else { %>
+    <p class="notice">Sorry, no matching vehicles could be found.</p>
+<% } %>

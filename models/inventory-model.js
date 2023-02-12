@@ -22,4 +22,18 @@ async function getVehiclesByClassificationId(classificationId) {
   }
 }
 
-module.exports = { getClassifications, getVehiclesByClassificationId };
+async function getVehicleByVehicleId(vehicleId) {
+  try {
+    const data = await pool.query(
+      `SELECT *
+      FROM public.inventory AS i
+      WHERE i.inv_id = $1`,
+      [vehicleId]
+    );
+    return data.rows;
+  } catch (error) {
+    console.log(`getVehicleByVehicleId Error: ${error}`);
+  }
+}
+
+module.exports = { getClassifications, getVehiclesByClassificationId, getVehicleByVehicleId };
