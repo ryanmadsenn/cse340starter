@@ -19,7 +19,6 @@ invController.buildByClassification = async function (req, res, next) {
 invController.buildDetail = async function (req, res, next) {
   const vehicleId = req.params.vehicleId;
   let data = await invModel.getVehicleByVehicleId(vehicleId);
-  console.log(data)
   let nav = await utilities.getNav();
   const make = data[0].inv_make;
   const model = data[0].inv_model;
