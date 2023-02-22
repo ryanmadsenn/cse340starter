@@ -1,0 +1,15 @@
+<% if (title) { %>
+    <h1 id="detail-title"><%= title %></h1>
+<% } else { 
+    res.redirect('/') 
+} %> 
+
+<% if (message) { %>
+    <p class="notice"><%= message %></p>
+<% } %> 
+
+<form id="account-form" action="/inv/add-classification" method="post">
+    <label>New Classification Name:<br><span class="note">Note: Name cannot contain spaces or special characters</span><br><input type="text" placeholder="e.g Sport" class="text-input" name="classification_name" required></label>
+    
+    <input type="submit" value="Register">
+</form>

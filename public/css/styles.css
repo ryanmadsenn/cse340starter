@@ -220,7 +220,6 @@ h3 {
   display: block;
   margin-left: 10px;
   margin-bottom: 5px;
-  color: #52b788;
 }
 
 #detail-title {
@@ -250,11 +249,75 @@ h3 {
   border-radius: 5px;
 }
 
-#detail-price {
-  color: #52b788;
+.copyright {
+  margin: 10px;
 }
 
-.copyright {
+#account-form {
+  padding: 20px;
+  box-shadow: 0 0 3px #999;
+  border-radius: 5px;
+  margin: 0 auto;
+  width: 300px;
+  /* text-align: center; */
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+#account-form label {
+  font-size: 15px;
+}
+
+#account-form input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#account-form textarea {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.text-input {
+  padding: 5px;
+  border: solid 1px #dedede;
+  border-radius: 5px;
+}
+
+#account-form input[type="submit"] {
+  width: 100px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 5px;
+  border: solid 1px #dedede;
+  border-radius: 5px;
+}
+
+#sign-up-link {
+  text-align: center;
+  font-size: 14px;
+}
+
+.management-link {
+  display: inline-block;
+  margin: 10px;
+  text-decoration: none;
+  color: black;
+  box-shadow: 0 0 3px #999;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.note {
+  font-size: 10px;
+}
+
+#classificationId {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.notice {
   margin: 10px;
 }
 

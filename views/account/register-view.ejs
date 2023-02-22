@@ -1,0 +1,18 @@
+<% if (title) { %>
+    <h1 id="detail-title"><%= title %></h1>
+<% } else { 
+    res.redirect('/') 
+} %> 
+
+<% if (message) { %>
+    <p class="notice"><%= message %></p>
+<% } %> 
+
+<form id="account-form" action="/client/register" method="post">
+    <label>First Name:<br><input type="text" placeholder="John" class="text-input" name="client_firstname" required></label>
+    <label>Last Name:<br><input type="text" placeholder="Smith" class="text-input" name="client_lastname" required></label>
+    <label>Email:<br><input type="email" placeholder="john.smith@email.com" class="text-input" name="client_email" required></label>
+    <label>Password:<br><input type="password" placeholder="Password" class="text-input" name="client_password" required></label>
+    <input type="submit" value="Register">
+    <div id="sign-up-link">Already have an account? <a href="/client/login">Log in</a></div>
+</form>

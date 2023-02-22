@@ -10,6 +10,13 @@ const env = require("dotenv").config();
 const app = express();
 const expressLayouts = require("express-ejs-layouts");
 const baseController = require("./controllers/base-controller");
+const bodyParser = require("body-parser");
+
+/* ***********************
+ * Middleware
+ *************************/
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /* ***********************
  * View Engine and Templates
@@ -23,6 +30,7 @@ app.set("layout", "./layouts/layout"); // not at views root
  *************************/
 app.use(require("./routes/static"));
 app.use("/inv", require("./routes/inventory-route"));
+app.use("/client", require("./routes/account-route"));
 
 // Index route
 app.get("/", baseController.buildHome);
