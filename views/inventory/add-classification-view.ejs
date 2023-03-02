@@ -8,8 +8,15 @@
     <p class="notice"><%= message %></p>
 <% } %> 
 
+<% if (errors) { %>
+    <ul>
+        <% errors.array().forEach(error => { %>
+            <li class="error"><%= error.msg %></li>
+        <% }) %>
+    </ul>
+<% } %>
+
 <form id="account-form" action="/inv/add-classification" method="post">
-    <label>New Classification Name:<br><span class="note">Note: Name cannot contain spaces or special characters</span><br><input type="text" placeholder="e.g Sport" class="text-input" name="classification_name" required></label>
-    
+    <label>New Classification Name:<br><span class="note">Note: Name cannot contain spaces or special characters</span><br><input type="text" placeholder="e.g Sport" class="text-input" name="classification_name" pattern="[a-zA-Z]+" value="<%= locals.classification_name %>" required></label>
     <input type="submit" value="Register">
 </form>

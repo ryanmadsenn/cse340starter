@@ -11,9 +11,11 @@ invController.buildByClassification = async function (req, res, next) {
   if (data.length > 0) {
     className = data[0].classification_name;
   } else {
-    className = await invModel.getClassificationNameByClassificationId(classificationId);
-  }  
-  
+    className = await invModel.getClassificationNameByClassificationId(
+      classificationId
+    );
+  }
+
   res.render("./inventory/classification-view", {
     title: `${className} Vehicles`,
     nav,
@@ -52,6 +54,7 @@ invController.buildAddClassification = async function (req, res, next) {
     title: "Add Classification",
     nav,
     message: null,
+    errors: null,
   });
 };
 
@@ -62,17 +65,17 @@ invController.buildAddVehicle = async function (req, res, next) {
     title: "Add Vehicle",
     nav,
     message: null,
+    errors: null,
     dropdown,
   });
 };
 
 invController.addClassification = async function (req, res, next) {
-  const nav = await utilities.getNav();
   const { classification_name } = req.body;
 
   const regResult = await invModel.addClassification(classification_name);
 
-  console.log(regResult);
+  const nav = await utilities.getNav();
 
   if (regResult) {
     res.status(201).render("./inventory/add-classification-view", {
@@ -82,7 +85,7 @@ invController.addClassification = async function (req, res, next) {
       errors: null,
     });
   } else {
-    const message = "Sorry, failed to add classification."
+    const message = "Sorry, failed to add classification.";
     res.status(501).render("./inventory/add-classification-view", {
       title: "Add Classification",
       nav,
@@ -95,16 +98,18 @@ invController.addClassification = async function (req, res, next) {
 invController.addVehicle = async function (req, res, next) {
   const nav = await utilities.getNav();
   const dropdown = await utilities.getClassificationDropdown();
-  const { inv_make, 
-          inv_model, 
-          inv_year,  
-          inv_description, 
-          inv_image, 
-          inv_thumbnail, 
-          inv_price,
-          inv_miles,
-          inv_color,
-          classification_id } = req.body;
+  const {
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id,
+  } = req.body;
 
   const vehicleDetails = {
     inv_make,
@@ -116,12 +121,10 @@ invController.addVehicle = async function (req, res, next) {
     inv_price,
     inv_miles,
     inv_color,
-    classification_id
+    classification_id,
   };
 
   const regResult = await invModel.addVehicle(vehicleDetails);
-
-  console.log(regResult);
 
   if (regResult) {
     res.status(201).render("./inventory/add-vehicle-view", {
@@ -132,7 +135,7 @@ invController.addVehicle = async function (req, res, next) {
       dropdown,
     });
   } else {
-    const message = "Sorry, failed to add vehicle."
+    const message = "Sorry, failed to add vehicle.";
     res.status(501).render("./inventory/add-vehicle-view", {
       title: "Add Vehicle",
       nav,
@@ -141,7 +144,6 @@ invController.addVehicle = async function (req, res, next) {
       dropdown,
     });
   }
-}
-
+};
 
 module.exports = invController;

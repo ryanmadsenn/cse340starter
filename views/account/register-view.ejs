@@ -1,18 +1,66 @@
 <% if (title) { %>
-    <h1 id="detail-title"><%= title %></h1>
-<% } else { 
-    res.redirect('/') 
-} %> 
+  <h1 id="detail-title"><%= title %></h1>
+<% } else { res.redirect('/') } %> 
 
 <% if (message) { %>
-    <p class="notice"><%= message %></p>
-<% } %> 
+  <p class="notice"><%= message %></p>
+<% } %>
+
+<% if (errors) { %>
+  <ul class="errors">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+  </ul>
+<% } %>
 
 <form id="account-form" action="/client/register" method="post">
-    <label>First Name:<br><input type="text" placeholder="John" class="text-input" name="client_firstname" required></label>
-    <label>Last Name:<br><input type="text" placeholder="Smith" class="text-input" name="client_lastname" required></label>
-    <label>Email:<br><input type="email" placeholder="john.smith@email.com" class="text-input" name="client_email" required></label>
-    <label>Password:<br><input type="password" placeholder="Password" class="text-input" name="client_password" required></label>
-    <input type="submit" value="Register">
-    <div id="sign-up-link">Already have an account? <a href="/client/login">Log in</a></div>
+  <label>First Name:<br />
+    <input
+      type="text"
+      placeholder="John"
+      class="text-input"
+      name="client_firstname"
+      required
+      value="<%= locals.client_firstname %>"
+    />
+  </label>
+  <label>Last Name:<br />
+    <input
+      type="text"
+      placeholder="Smith"
+      class="text-input"
+      name="client_lastname"
+      required
+      value="<%= locals.client_lastname %>"
+    />
+  </label>
+  <label>Email:<br />
+    <input
+      type="email"
+      placeholder="john.smith@email.com"
+      class="text-input"
+      name="client_email"
+      required
+      value="<%= locals.client_email === "@" ? "" : locals.client_email %>"
+    />
+  </label>
+  <label for="client_password">Password:</label>
+  <span id="password-requirements">
+    *Passwords must be at least 12 characters and contain at least 1 capital
+    letter, 1 number, and 1 special character.
+  </span>
+  <input
+    type="password"
+    placeholder="Password"
+    class="text-input"
+    name="client_password"
+    id="client_password"
+    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+    required
+  />
+  <input type="submit" value="Register" />
+  <div id="sign-up-link">
+    Already have an account? <a href="/client/login">Log in</a>
+  </div>
 </form>

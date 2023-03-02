@@ -59,20 +59,21 @@ Util.getDetail = async function (data) {
   return Util.buildDetail(data);
 };
 
-Util.buildClassificationDropdown = function (data) {
+Util.buildClassificationDropdown = function (data, classification_id) {
   let dropdown = `<select name="classification_id" class="text-input" id="classificationId">`;
   dropdown += `<option value="0">Select</option>`;
   data.rows.forEach((row) => {
-    dropdown += `<option value="${row.classification_id}">${row.classification_name}</option>`;
+    let selected = "";
+    if (classification_id == row.classification_id) selected = "selected";
+    dropdown += `<option value="${row.classification_id}" ${selected}>${row.classification_name}</option>`;
   });
   dropdown += "</select>";
   return dropdown;
 };
 
-Util.getClassificationDropdown = async function () {
+Util.getClassificationDropdown = async function (classification_id = null) {
   const data = await invModel.getClassifications();
-  console.log(data);
-  return Util.buildClassificationDropdown(data);
+  return Util.buildClassificationDropdown(data, classification_id);
 };
 
 module.exports = Util;
