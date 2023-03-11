@@ -19,12 +19,12 @@
 <form id="account-form" action="/inv/add-vehicle" method="post">
     <label>Make:<br><input type="text" placeholder="e.g Ford" class="text-input" name="inv_make" pattern="[a-zA-Z]+" value="<%= locals.inv_make %>" required></label>
     <label>Model:<br><input type="text" placeholder="e.g GT" class="text-input" name="inv_model" pattern="[a-zA-Z0-9]+" value="<%= locals.inv_model %>" required></label>
-    <label>Year:<br><input type="number" min="1886" pattern="\d{4}" class="text-input" name="inv_year" value="<%= locals.inv_year %>" required></label>
+    <label>Year:<br><input type="number" min="1886" class="text-input" name="inv_year" value="<%= locals.inv_year %>" required></label>
     <label>Description:<br><textarea class="text-input" name="inv_description" required><%= locals.inv_description %></textarea></label>
-    <label>Main Image Path:<br><input type="text" value="/images/vehicles/no-image.png" class="text-input" name="inv_image" pattern=".*\.(png|jpeg|jpg|webp|svg)$" value="<%= locals.inv_image %>" required></label>
-    <label>Thumbnail Image Path:<br><input type="text" value="/images/vehicles/no-image-tn.png" class="text-input" name="inv_thumbnail" pattern=".*\.(png|jpeg|jpg|webp|svg)$" value="<%= locals.inv_thumbnail %>" required></label>
-    <label>Price:<br><input type="number" class="text-input" name="inv_price" pattern="\d+" value="<%= locals.inv_price %>" required></label>
-    <label>Miles:<br><input type="number" class="text-input" name="inv_miles" pattern="\d+" value="<%= locals.inv_miles %>" required></label>
+    <label>Main Image Path:<br><input type="text" value=<%= if (locals.inv_image) ? locals.inv_image : "/images/vehicles/no-image.png" %> class="text-input" name="inv_image" pattern=".*\.(png|jpeg|jpg|webp|svg)$" required></label>
+    <label>Thumbnail Image Path:<br><input type="text" value=<%= if (locals.inv_thumbnail) ? locals.inv_thumbnail : "/images/vehicles/no-image-tn.png" %> class="text-input" name="inv_thumbnail" pattern=".*\.(png|jpeg|jpg|webp|svg)$" required></label>
+    <label>Price:<br><input type="number" class="text-input" name="inv_price" value="<%= locals.inv_price %>" required></label>
+    <label>Miles:<br><input type="number" class="text-input" name="inv_miles" value="<%= locals.inv_miles %>" required></label>
     <label>Color:<br><input type="text" class="text-input" name="inv_color" pattern="[a-zA-Z]{3,}" value="<%= locals.inv_color %>" required></label>
     <label>Classification:<br><%- dropdown %></label>
     <input type="submit" value="Add Vehicle">
