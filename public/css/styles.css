@@ -308,6 +308,10 @@ h3 {
   border-radius: 5px;
 }
 
+.management-message {
+  margin-left: 10px;
+}
+
 .note {
   font-size: 10px;
 }

@@ -18,6 +18,7 @@
 
 <% if (locals.clientData.client_type === "Client") { %>
   <h1>Welcome <%= locals.clientData.client_firstname %></h1>
+  <p class="management-message">You're logged in</p>
 <% } else { %>
   <h2>Welcome <%= locals.clientData.client_firstname %></h2>
   <h3>Inventory Management</h3>
