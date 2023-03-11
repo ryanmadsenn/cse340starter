@@ -1,5 +1,7 @@
 const { DataRowMessage } = require("pg-protocol/dist/messages");
 const invModel = require("../models/inventory-model");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const Util = {};
 
 /******************************************
@@ -74,6 +76,79 @@ Util.buildClassificationDropdown = function (data, classification_id) {
 Util.getClassificationDropdown = async function (classification_id = null) {
   const data = await invModel.getClassifications();
   return Util.buildClassificationDropdown(data, classification_id);
+};
+
+/* ****************************************
+ *  Check JWT
+ * ************************************ */
+// Util.checkJWTToken = (req, res, next) => {
+//   jwt.verify(req.cookies.jwt, process.env.ACCESS_TOKEN, (err) => {
+//     if (err) {
+//       return res.status(403).redirect("/client/login");
+//     }
+//     return next();
+//   });
+// };
+
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN,
+      function (err, clientData) {
+        if (err) {
+          res.clearCookie("jwt");
+          return res.redirect("/client/login");
+        }
+        res.locals.clientData = clientData;
+        res.locals.loggedin = 1;
+        next();
+      }
+    );
+  } else {
+    next();
+  }
+};
+
+/* ****************************************
+ *  Authorize JWT
+ * ************************************ */
+Util.jwtAuth = (req, res, next) => {
+  const token = req.cookies.jwt;
+  try {
+    const clientData = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    req.clientData = clientData;
+    next();
+  } catch (error) {
+    res.clearCookie("jwt", { httpOnly: true });
+    return res.redirect("/client/login");
+  }
+};
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next();
+  } else {
+    return res.redirect("/client/login");
+  }
+};
+
+Util.checkEmployeeOrAdmin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    if (
+      res.locals.clientData.client_type === "Employee" ||
+      res.locals.clientData.client_type === "Admin"
+    ) {
+      next();
+    } else {
+      return res.redirect("/client/login");
+    }
+  } else {
+    return res.redirect("/client/login");
+  }
 };
 
 module.exports = Util;

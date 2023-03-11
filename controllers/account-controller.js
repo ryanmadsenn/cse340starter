@@ -2,6 +2,8 @@ const utilities = require("../utilities");
 const accountModel = require("../models/account-model");
 const accountController = {};
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 accountController.buildLogin = async function (req, res) {
   const nav = await utilities.getNav();
@@ -27,28 +29,36 @@ accountController.loginClient = async function (req, res) {
   const nav = await utilities.getNav();
   const { client_email, client_password } = req.body;
 
-  const validated = await accountModel.checkUsernameAndPassword(
-    client_email,
-    client_password
-  );
+  const clientData = await accountModel.getClientByEmail(client_email);
 
-  if (validated) {
-    res.status(201).render("./account/login-view", {
+  if (!clientData) {
+    const message = "Please check your credentials and try again.";
+    res.status(400).render("./account/login-view", {
       title: "Login",
       nav,
-      message: "You are logged in.",
+      message,
       errors: null,
-    });
-  } else {
-    res.status(501).render("./account/login-view", {
-      errors: null,
-      message: "Invalid email or password.",
-      title: "Login",
-      nav,
       client_email,
     });
     return;
   }
+  try {
+    if (await bcrypt.compare(client_password, clientData.client_password)) {
+      delete clientData.client_password;
+      const accessToken = jwt.sign(clientData, process.env.ACCESS_TOKEN, {
+        expiresIn: 3600 * 1000,
+      });
+      res.cookie("jwt", accessToken, { httpOnly: true });
+      return res.redirect("/client/");
+    }
+  } catch (err) {
+    return res.status(403).send("Access Forbidden");
+  }
+};
+
+accountController.logoutClient = async function (req, res) {
+  res.clearCookie("jwt");
+  res.redirect("/");
 };
 
 accountController.registerClient = async function (req, res) {
@@ -93,6 +103,16 @@ accountController.registerClient = async function (req, res) {
       errors: null,
     });
   }
+};
+
+accountController.buildManagement = async function (req, res) {
+  const nav = await utilities.getNav();
+  res.render("./account/management-view", {
+    title: "Management",
+    nav,
+    errors: null,
+    message: null,
+  });
 };
 
 module.exports = accountController;

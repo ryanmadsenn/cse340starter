@@ -38,6 +38,19 @@ async function checkExistingEmail(client_email) {
 }
 
 /* **********************
+ *   Get client by email
+ * ********************* */
+async function getClientByEmail(client_email) {
+  try {
+    const sql = "SELECT * FROM client WHERE client_email = $1";
+    const result = await pool.query(sql, [client_email]);
+    return result.rows[0];
+  } catch (error) {
+    return error.message;
+  }
+}
+
+/* **********************
  *   Check for existing email and password
  * ********************* */
 async function checkUsernameAndPassword(client_email, client_password) {
@@ -55,4 +68,5 @@ module.exports = {
   registerClient,
   checkExistingEmail,
   checkUsernameAndPassword,
+  getClientByEmail,
 };

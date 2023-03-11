@@ -5,7 +5,7 @@
     </span>
     <div id="tools">
       <span class="accountLink">
-        <a id="account" href="/client/login">My Account</a>
+        <a id="account" href=<%= locals.loggedin ? "/client/logout" : "/client/login" %>><%= locals.loggedin ? "Logout" : "My Account" %></a>
       </span>
     </div>
   </div>

@@ -11,12 +11,16 @@ const app = express();
 const expressLayouts = require("express-ejs-layouts");
 const baseController = require("./controllers/base-controller");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const Util = require("./utilities");
 
 /* ***********************
  * Middleware
  *************************/
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(Util.checkJWTToken);
 
 /* ***********************
  * View Engine and Templates
