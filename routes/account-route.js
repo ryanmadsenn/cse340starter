@@ -4,21 +4,28 @@ const accountController = require("../controllers/account-controller");
 const accountValidate = require("../utilities/account-validator");
 const utilities = require("../utilities/");
 
-router.get("/", utilities.checkLogin, accountController.buildManagement);
-router.get("/login", accountController.buildLogin);
-router.get("/logout", accountController.logoutClient);
-router.get("/register", accountController.buildRegister);
+router.get(
+  "/",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildManagement)
+);
+router.get("/login", utilities.handleErrors(accountController.buildLogin));
+router.get("/logout", utilities.handleErrors(accountController.logoutClient));
+router.get(
+  "/register",
+  utilities.handleErrors(accountController.buildRegister)
+);
 router.post(
   "/login",
   accountValidate.loginRules(),
   accountValidate.checkLoginData,
-  accountController.loginClient
+  utilities.handleErrors(accountController.loginClient)
 );
 router.post(
   "/register",
   accountValidate.registationRules(),
   accountValidate.checkRegData,
-  accountController.registerClient
+  utilities.handleErrors(accountController.registerClient)
 );
 
 module.exports = router;
