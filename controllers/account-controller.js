@@ -26,6 +26,7 @@ accountController.buildRegister = async function (req, res) {
 };
 
 accountController.loginClient = async function (req, res) {
+  console.log("loginClient");
   const nav = await utilities.getNav();
   const { client_email, client_password } = req.body;
 
@@ -50,6 +51,15 @@ accountController.loginClient = async function (req, res) {
       });
       res.cookie("jwt", accessToken, { httpOnly: true });
       return res.redirect("/client/");
+    } else {
+      const message = "Please check your credentials and try again.";
+      res.status(400).render("./account/login-view", {
+        title: "Login",
+        nav,
+        message,
+        errors: null,
+        client_email,
+      });
     }
   } catch (err) {
     return res.status(403).send("Access Forbidden");

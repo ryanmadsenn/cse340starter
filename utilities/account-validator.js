@@ -128,6 +128,7 @@ async function checkExistingEmail(client_email, client_id) {
  * Check data and return errors or continue to login.
  * ********************************* */
 validate.checkLoginData = async (req, res, next) => {
+  console.log("Check Login Data");
   const { client_email } = req.body;
   let errors = [];
   errors = validationResult(req);
