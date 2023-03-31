@@ -16,6 +16,10 @@ body {
   font-family: var(--paragraph-font);
 }
 
+main {
+  padding: 10px;
+}
+
 #wrapper {
   background-color: white;
   border: solid 5px aqua;
@@ -85,7 +89,6 @@ h1,
 h2,
 h3 {
   font-family: var(--title-font);
-  margin-left: 10px;
 }
 
 #hero {
@@ -179,7 +182,6 @@ h3 {
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
   padding: 0;
-  margin: 0 10px 0 10px;
 }
 
 #inv-display li {
@@ -253,27 +255,28 @@ h3 {
   margin: 10px;
 }
 
-#account-form {
+.account-form {
   padding: 20px;
   box-shadow: 0 0 3px #999;
   border-radius: 5px;
   margin: 0 auto;
-  width: 300px;
+  margin-bottom: 10px;
+  max-width: 600px;
   /* text-align: center; */
   display: grid;
   grid-template-columns: 1fr;
 }
 
-#account-form label {
+.account-form label {
   font-size: 15px;
 }
 
-#account-form input {
+.account-form input {
   width: 100%;
   margin-bottom: 20px;
 }
 
-#account-form textarea {
+.account-form textarea {
   width: 100%;
   margin-bottom: 20px;
 }
@@ -284,7 +287,7 @@ h3 {
   border-radius: 5px;
 }
 
-#account-form input[type="submit"] {
+.account-form input[type="submit"] {
   width: 100px;
   margin: 0 auto;
   margin-bottom: 20px;
@@ -300,7 +303,7 @@ h3 {
 
 .management-link {
   display: inline-block;
-  margin: 10px;
+  margin: 10px 0;
   text-decoration: none;
   color: black;
   box-shadow: 0 0 3px #999;
@@ -322,7 +325,7 @@ h3 {
 }
 
 .notice {
-  margin: 10px;
+  margin: 10px 0;
 }
 
 #password-requirements {
@@ -332,6 +335,36 @@ h3 {
 .error-link {
   margin-left: 10px;
   color: crimson;
+}
+
+.classification-dropdown-container {
+  max-width: 200px;
+}
+
+#inventory-display {
+  margin: 0 0 20px 0;
+  padding: 5px;
+  border: solid 1px #dedede;
+  border-collapse: collapse;
+  border-radius: 10px;
+}
+
+#inventory-display thead {
+  background-color: #efefef;
+  border-bottom: solid 1px #dedede;
+}
+
+#inventory-display td {
+  padding: 10px;
+  border-bottom: solid 1px #dedede;
+}
+
+.vehicle-table-button {
+  text-decoration: none;
+  color: black;
+  padding: 5px;
+  box-shadow: 0 0 3px #999;
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 1000px) {

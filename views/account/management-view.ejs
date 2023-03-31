@@ -21,6 +21,7 @@
   <p class="management-message">You're logged in</p>
 <% } else { %>
   <h2>Welcome <%= locals.clientData.client_firstname %></h2>
+  <a class="management-link" href="/client/update">Update Account Information</a>
   <h3>Inventory Management</h3>
   <p><a class="management-link" href="/inv/">Inventory Management</a></p>
 <% }; %>

@@ -15,6 +15,8 @@ router.get(
   "/register",
   utilities.handleErrors(accountController.buildRegister)
 );
+router.get("/update", utilities.handleErrors(accountController.buildUpdate));
+
 router.post(
   "/login",
   accountValidate.loginRules(),
@@ -26,6 +28,18 @@ router.post(
   accountValidate.registationRules(),
   accountValidate.checkRegData,
   utilities.handleErrors(accountController.registerClient)
+);
+router.post(
+  "/update-info",
+  accountValidate.updateRules(),
+  accountValidate.checkUpdateData,
+  utilities.handleErrors(accountController.updateClient)
+);
+router.post(
+  "/update-password",
+  accountValidate.passwordRules(),
+  accountValidate.checkPasswordData,
+  utilities.handleErrors(accountController.updatePassword)
 );
 
 module.exports = router;

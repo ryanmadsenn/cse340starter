@@ -183,4 +183,56 @@ validate.checkAddVehicleData = async (req, res, next) => {
   next();
 };
 
+/*  **********************************
+ *  Check data and return errors edit vehicle
+ * ********************************* */
+validate.checkUpdateVehicleData = async (req, res, next) => {
+  let {
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id,
+  } = req.body;
+
+  let errors = [];
+  errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    let classifications = await invModel.getClassifications();
+    let dropdown = await utilities.buildClassificationDropdown(
+      classifications,
+      classification_id
+    );
+    res.render("./inventory/edit-vehicle-view", {
+      title: `Edit ${inv_make} ${inv_model}`,
+      nav,
+      message: null,
+      errors,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id,
+      classifications,
+      dropdown,
+    });
+    return;
+  }
+  next();
+};
+
 module.exports = validate;

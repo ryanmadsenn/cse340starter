@@ -115,4 +115,94 @@ accountController.buildManagement = async function (req, res) {
   });
 };
 
+accountController.buildUpdate = async function (req, res) {
+  let client_id = res.locals.clientData.client_id;
+  const nav = await utilities.getNav();
+  const clientData = await accountModel.getClientById(client_id);
+
+  res.render("./account/update-account-view", {
+    title: "Update Acount",
+    nav,
+    errors: null,
+    message: null,
+    client_id: clientData.client_id,
+    client_firstname: clientData.client_firstname,
+    client_lastname: clientData.client_lastname,
+    client_email: clientData.client_email,
+  });
+};
+
+accountController.updateClient = async function (req, res) {
+  const nav = await utilities.getNav();
+  const { client_id, client_firstname, client_lastname, client_email } =
+    req.body;
+
+  const updateResult = await accountModel.updateClient(
+    client_id,
+    client_firstname,
+    client_lastname,
+    client_email
+  );
+
+  if (updateResult) {
+    let clientData = await accountModel.getClientById(client_id);
+    res.status(201).render("./account/management-view", {
+      title: "Management",
+      nav,
+      message: `Your account has been updated.`,
+      errors: null,
+      clientData: clientData,
+    });
+  } else {
+    const message = "Sorry, the update failed.";
+    res.status(501).render("./account/update-account-view", {
+      title: "Update Account",
+      nav,
+      message,
+      errors: null,
+    });
+  }
+};
+
+accountController.updatePassword = async function (req, res) {
+  const nav = await utilities.getNav();
+  const { client_id, client_password } = req.body;
+
+  let hashedPassword;
+  try {
+    // Pass password and cost.
+    hashedPassword = await bcrypt.hash(client_password, 10);
+  } catch (err) {
+    res.status(500).render("./account/update-account-view", {
+      title: "Update Account",
+      nav,
+      message: "Sorry, there was an error processing the update.",
+      errors: null,
+    });
+    return;
+  }
+
+  const updateResult = await accountModel.updatePassword(
+    client_id,
+    hashedPassword
+  );
+
+  if (updateResult) {
+    res.status(201).render("./account/management-view", {
+      title: "Management",
+      nav,
+      message: `Your password has been updated.`,
+      errors: null,
+    });
+  } else {
+    const message = "Sorry, the update failed.";
+    res.status(501).render("./account/update-account-view", {
+      title: "Update Account",
+      nav,
+      message,
+      errors: null,
+    });
+  }
+};
+
 module.exports = accountController;

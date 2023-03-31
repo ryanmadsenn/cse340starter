@@ -116,6 +116,52 @@ async function addVehicle(vehicleDetails) {
   }
 }
 
+async function updateVehicle(vehicleDetails) {
+  try {
+    const sql = `UPDATE public.inventory
+                SET inv_make = $1, 
+                    inv_model = $2, 
+                    inv_year = $3, 
+                    inv_description = $4, 
+                    inv_image = $5, 
+                    inv_thumbnail = $6, 
+                    inv_price = $7, 
+                    inv_miles = $8, 
+                    inv_color = $9, 
+                    classification_id = $10
+                WHERE inv_id = $11`;
+    const values = [
+      vehicleDetails.inv_make,
+      vehicleDetails.inv_model,
+      vehicleDetails.inv_year,
+      vehicleDetails.inv_description,
+      vehicleDetails.inv_image,
+      vehicleDetails.inv_thumbnail,
+      vehicleDetails.inv_price,
+      vehicleDetails.inv_miles,
+      vehicleDetails.inv_color,
+      vehicleDetails.classification_id,
+      vehicleDetails.inv_id,
+    ];
+
+    return await pool.query(sql, values);
+  } catch (error) {
+    error.message;
+  }
+}
+
+async function deleteVehicle(vehicleId) {
+  try {
+    const sql = `DELETE FROM public.inventory
+                WHERE inv_id = $1`;
+    const values = [vehicleId];
+    let data = await pool.query(sql, values);
+    return data;
+  } catch (error) {
+    error.message;
+  }
+}
+
 module.exports = {
   getClassifications,
   getClassificationNameByClassificationId,
@@ -125,4 +171,6 @@ module.exports = {
   getVehicleByVehicleId,
   addClassification,
   addVehicle,
+  updateVehicle,
+  deleteVehicle,
 };

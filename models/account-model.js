@@ -27,10 +27,13 @@ async function registerClient(
 /* **********************
  *   Check for existing email
  * ********************* */
-async function checkExistingEmail(client_email) {
+async function checkExistingEmail(client_email, client_id = null) {
   try {
-    const sql = "SELECT * FROM client WHERE client_email = $1";
-    const email = await pool.query(sql, [client_email]);
+    let sql = "SELECT * FROM client WHERE client_email = $1";
+    if (client_id) {
+      sql += " AND client_id != $2";
+    }
+    const email = await pool.query(sql, [client_email, client_id]);
     return email.rowCount;
   } catch (error) {
     return error.message;
@@ -51,6 +54,19 @@ async function getClientByEmail(client_email) {
 }
 
 /* **********************
+ *   Get client by id
+ * ********************* */
+async function getClientById(client_id) {
+  try {
+    const sql = "SELECT * FROM client WHERE client_id = $1";
+    const result = await pool.query(sql, [client_id]);
+    return result.rows[0];
+  } catch (error) {
+    return error.message;
+  }
+}
+
+/* **********************
  *   Check for existing email and password
  * ********************* */
 async function checkUsernameAndPassword(client_email, client_password) {
@@ -64,9 +80,43 @@ async function checkUsernameAndPassword(client_email, client_password) {
   }
 }
 
+async function updateClient(
+  client_id,
+  client_firstname,
+  client_lastname,
+  client_email
+) {
+  try {
+    const sql = `UPDATE public.client 
+                    SET client_firstname = $1, client_lastname = $2, client_email = $3
+                    WHERE client_id = $4`;
+    const values = [client_firstname, client_lastname, client_email, client_id];
+    const data = await pool.query(sql, values);
+    return data;
+  } catch (error) {
+    error.message;
+  }
+}
+
+async function updatePassword(client_id, client_password) {
+  try {
+    const sql = `UPDATE public.client
+                    SET client_password = $1
+                    WHERE client_id = $2`;
+    const values = [client_password, client_id];
+    const data = pool.query(sql, values);
+    return data;
+  } catch (error) {
+    error.message;
+  }
+}
+
 module.exports = {
   registerClient,
   checkExistingEmail,
   checkUsernameAndPassword,
   getClientByEmail,
+  getClientById,
+  updateClient,
+  updatePassword,
 };
